@@ -83,7 +83,7 @@ I1113 22:09:18.295565     1 caffe.cpp:416] Average Forward-Backward: 14880.1 ms.
 
 #### Validating that you can successfully run docker + cuda + darknet / yolo:
 
-Now assuming you have an attached webcam (not the itegrated one):
+Now assuming you have an attached webcam (not the integrated one):
 ```
 xhost + && docker run --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --rm openhorizon/darknet-tx1 ./darknet yolo demo cfg/tiny-yolo.cfg tiny-yolo.weights
 ```
