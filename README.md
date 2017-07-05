@@ -1,5 +1,7 @@
 Many thanks to Dima Rekesh, PhD who is the original author of these builds and write-up.
 
+### For initial Jetson hardware setup instructions, visit the [wiki Home](https://github.com/open-horizon/cogwerx-jetson-tx1/wiki)
+
 ### Docker build instructions and files for deep learning container images
 * Jetson TX1 (base)
 * CUDA, CUDNN, OpenCV and supporting libs, full and lean variants
