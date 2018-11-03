@@ -1,0 +1,20 @@
+FROM openhorizon/aarch64-tx1-cudabase:jetpack3.3
+
+#AUTHOR bmwshop@gmail.com
+MAINTAINER nuculur@gmail.com
+
+# this installs darknet: http://pjreddie.com/darknet/install/
+# and then configures the tiny model for yolo
+RUN apt-get update && apt-get install -y git pkg-config wget
+
+RUN apt-get install -y libopencv-dev
+WORKDIR /
+RUN git clone https://github.com/pjreddie/darknet.git
+WORKDIR /darknet
+COPY Makefile /darknet/Makefile
+
+ENV PATH /usr/local/cuda/bin:$PATH
+RUN make -j4
+
+RUN wget https://pjreddie.com/media/files/yolov3-tiny.weights
+RUN wget https://pjreddie.com/media/files/yolov3.weights

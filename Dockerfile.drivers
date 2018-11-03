@@ -1,0 +1,21 @@
+# This is the base container for the Jetson TX1 board with drivers (without cuda)
+FROM aarch64/ubuntu
+
+#AUTHOR bmwshop@gmail.com
+MAINTAINER nuculur@gmail.com
+
+# base URL for NVIDIA libs
+ARG URL=https://developer.download.nvidia.com/devzone/devcenter/mobile/jetpack_l4t/3.3/lw.xd42/JetPackL4T_33_b39
+
+# this is the base container for the jetson tx1 board with drivers (but without cuda)
+RUN apt-get update && apt-get install -y bzip2 curl unp sudo
+
+WORKDIR /tmp
+RUN curl -sL $URL/Tegra210_Linux_R28.2.0_aarch64.tbz2 | tar xvfj -
+RUN chown root /etc/passwd /etc/sudoers /usr/lib/sudo/sudoers.so /etc/sudoers.d/README
+RUN /tmp/Linux_for_Tegra/apply_binaries.sh -r / && rm -fr /tmp/*
+
+## Clean up
+RUN apt-get -y autoremove && apt-get -y autoclean
+RUN rm -rf /var/cache/apt
+
