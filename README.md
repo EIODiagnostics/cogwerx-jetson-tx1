@@ -71,11 +71,12 @@ I1113 22:09:18.295565     1 caffe.cpp:416] Average Forward-Backward: 14880.1 ms.
 
 #### Validating that you can successfully run docker + cuda + darknet / yolo:
 
-Now assuming you have an attached webcam (not the integrated one):
+On a TX1, full strength Yolo overwhelms available memory. Try it out with yolov3-tiny.
+Assuming you have an attached webcam (not the integrated one, at "-c 0"):
 ```
-xhost + && docker run --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --rm openhorizon/aarch64-tx1-darknet:jetpack3.3 ./darknet yolo demo cfg/tiny-yolo.cfg tiny-yolo.weights
+xhost + && docker run --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --rm openhorizon/aarch64-tx1-darknet:jetpack3.3 ./darknet detector demo -c 1 cfg/coco.data cfg/yolov3-tiny.cfg yolov3-tiny.weights
 ```
 Or to test on one picture (it works even if you don't have X):
 ```
-docker run --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --rm openhorizon/aarch64-tx1-darknet:jetpack3.3 ./darknet yolo test cfg/tiny-yolo.cfg tiny-yolo.weights data/person.jpg
+xhost + && docker run --privileged -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --rm openhorizon/aarch64-tx1-darknet:jetpack3.3 ./darknet detect cfg/yolov3-tiny.cfg yolov3-tiny.weights data/dog.jpg
 ```
